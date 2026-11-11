@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/* Тек жарық тақырып: dark: вариантын ешқашан іске қоспаймыз. */
+@custom-variant dark (&:where(.force-dark-never, .force-dark-never *));
+
+@theme {
+  --font-display: var(--font-onest), "Nunito", system-ui, sans-serif;
+  --font-body: var(--font-nunito), system-ui, sans-serif;
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+
+  --color-teal: #5ccbbc;
+  --color-teal-deep: #137a6d;
+  --color-teal-soft: #dff5f1;
+  --color-sun: #ffc857;
+  --color-sun-deep: #94620a;
+  --color-sun-soft: #fff1cf;
+  --color-coral: #ff9478;
+  --color-coral-deep: #c24a2c;
+  --color-coral-soft: #ffe6de;
+  --color-lav: #a9a2ef;
+  --color-lav-deep: #5b52c4;
+  --color-lav-soft: #eceafd;
+  --color-cream: #fff9f0;
+  --color-cream-deep: #fbefdc;
+  --color-ink: #263640;
+  --color-ink-soft: #4f626d;
+
+  --shadow-soft: 0 10px 30px -12px rgb(38 54 64 / 0.18);
+  --shadow-card: 0 18px 40px -22px rgb(38 54 64 / 0.28);
+  --shadow-pop: 0 22px 50px -20px rgb(19 122 109 / 0.45);
+
+  --radius-blob: 42% 58% 55% 45% / 48% 42% 58% 52%;
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 10s ease-in-out infinite;
+  --animate-twinkle: twinkle 4.5s ease-in-out infinite;
+  --animate-spin-slow: spin 40s linear infinite;
+  --animate-morph: morph 14s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, calc(var(--float-amp, 12px) * -1), 0) rotate(var(--float-rot, 4deg));
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.82) rotate(18deg);
+      opacity: 0.75;
+    }
+  }
+  @keyframes morph {
+    0%,
+    100% {
+      border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+    }
+    33% {
+      border-radius: 55% 45% 40% 60% / 55% 55% 45% 45%;
+    }
+    66% {
+      border-radius: 46% 54% 60% 40% / 40% 60% 40% 60%;
+    }
+  }
+}
+
+:root {
+  color-scheme: light only;
+  --header-h: 68px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 80px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--color-cream);
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  min-width: 320px;
+}
+
+/* Жүйелік қараңғы тақырып ештеңені өзгертпейді. */
+@media (prefers-color-scheme: dark) {
+  :root,
+  html,
+  body {
+    color-scheme: light only;
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+  }
+}
+
+/* Якорьге өткенде тақырып тіркелген Header астында қалмайды. */
+[data-section] {
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+@media (min-width: 1024px) {
+  [data-section] {
+    scroll-margin-top: calc(var(--header-h) + 20px);
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-sun);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-teal-deep);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* Мобильде декоративті қозғалыстар жұмсағырақ. */
+@media (max-width: 1023px) {
+  :root {
+    --float-amp: 6px;
+    --float-rot: 2deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility container-site {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+  max-width: 1240px;
+  @media (min-width: 640px) {
+    padding-inline: 24px;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 32px;
+  }
+}
+
+@utility blob {
+  border-radius: var(--radius-blob);
+}
+
+@utility safe-bottom {
+  bottom: calc(16px + env(safe-area-inset-bottom));
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
