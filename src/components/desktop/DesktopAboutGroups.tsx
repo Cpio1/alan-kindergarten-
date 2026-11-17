@@ -11,25 +11,25 @@ export function DesktopAboutGroups({ image }: { image: SiteImage | null }) {
     <div className="relative">
       {/* Бөлім 1 — Біз туралы */}
       <div className="relative overflow-hidden bg-white">
-        <div className="container-site grid grid-cols-[0.92fr_1.08fr] items-center gap-12 pb-16 pt-8 xl:gap-16 xl:pb-20 xl:pt-10">
-          <Reveal x={-24} y={0} className="relative mx-auto w-full max-w-[460px]">
-            <div className="relative aspect-[4/4.6]">
-              <div aria-hidden="true" className="absolute -left-[6%] top-[8%] h-[88%] w-[96%] rounded-t-[999px] rounded-b-[48px] bg-lav-soft" />
+        <div className="container-site grid grid-cols-[1fr_1.05fr] items-center gap-12 pb-16 pt-8 xl:gap-16 xl:pb-18 xl:pt-10">
+          <Reveal x={-24} y={0} className="relative mx-auto w-full max-w-[540px]">
+            <div className="relative" style={{ aspectRatio: image ? `${image.width} / ${image.height}` : "3 / 2" }}>
+              <div aria-hidden="true" className="absolute -left-[5%] top-[9%] h-full w-full rounded-[110px_110px_32px_32px] bg-lav-soft" />
               <ShapedImage
                 image={image}
                 alt="«Алан» бөбекжай-балабақшасындағы күнделікті өмір"
-                shape="arch"
+                shape="dome"
                 tone="lav"
-                sizes="(min-width: 1280px) 460px, 40vw"
+                sizes="(min-width: 1280px) 540px, 46vw"
                 className="absolute inset-0 shadow-card ring-8 ring-white"
               />
-              <Float className="-right-6 top-[12%] w-14" twinkle>
+              <Float className="-right-5 -top-6 w-12" twinkle>
                 <Star color="#FFC857" />
               </Float>
-              <Float className="-left-8 bottom-[18%] w-16" delay={0.6}>
+              <Float className="-left-9 top-[38%] w-14" delay={0.6}>
                 <Flower color="#FF9478" />
               </Float>
-              <Float className="-right-10 bottom-[8%] w-20" slow delay={1.4}>
+              <Float className="-right-9 bottom-[10%] w-16" slow delay={1.4}>
                 <Ring color="#5CCBBC" />
               </Float>
               <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-sun px-5 py-2.5 font-display text-[15px] font-bold text-ink shadow-soft">
@@ -80,7 +80,7 @@ export function DesktopAboutGroups({ image }: { image: SiteImage | null }) {
 
       {/* Толқынды өту → Бөлім 2 — Топтар */}
       <Wave color="#F4F2FE" variant={3} className="bg-white" />
-      <div className="relative overflow-hidden bg-[#F4F2FE] pb-16 pt-6 xl:pb-20">
+      <div className="relative overflow-hidden bg-[#F4F2FE] pb-14 pt-6 xl:pb-16">
         <Float className="left-[6%] top-10 w-10" twinkle>
           <Star color="#FF9478" />
         </Float>
@@ -95,15 +95,13 @@ export function DesktopAboutGroups({ image }: { image: SiteImage | null }) {
             <p className="mt-3 text-[17px] leading-relaxed text-ink-soft">{about.groupsText}</p>
           </Reveal>
 
-          <Stagger className="mt-10 grid grid-cols-3 gap-5 xl:gap-6">
+          <Stagger className="mx-auto mt-9 grid max-w-[1080px] grid-cols-3 gap-4 xl:gap-5">
             {groups.map((g, i) => (
               <StaggerItem key={g.name} hover>
                 <GroupCard group={g} index={i} />
               </StaggerItem>
             ))}
           </Stagger>
-
-          <p className="mt-8 text-center text-[14px] font-semibold text-ink-soft">{about.groupsNote}</p>
         </div>
       </div>
       <Wave color="#FFF9F0" variant={1} className="bg-[#F4F2FE]" />

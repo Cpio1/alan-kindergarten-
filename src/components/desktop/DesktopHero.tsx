@@ -14,7 +14,7 @@ export function DesktopHero({ image }: { image: SiteImage | null }) {
       <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-1/3 size-[300px] rounded-full bg-lav-soft/80" />
       <div aria-hidden="true" className="pointer-events-none absolute bottom-24 left-[46%] size-[140px] rounded-full bg-sun-soft" />
 
-      <div className="container-site relative grid grid-cols-[1.08fr_1fr] items-center gap-10 pb-10 pt-4 xl:gap-14 xl:pb-14 xl:pt-8">
+      <div className="container-site relative grid grid-cols-[1fr_1fr] items-center gap-12 pb-14 pt-4 xl:gap-16 xl:pb-16 xl:pt-8">
         <div className="relative z-10 max-w-[600px]">
           <Reveal y={16}>
             <Eyebrow color="coral">{hero.eyebrow}</Eyebrow>
@@ -69,38 +69,37 @@ export function DesktopHero({ image }: { image: SiteImage | null }) {
           </Reveal>
         </div>
 
-        {/* Фото композициясы */}
-        <Reveal delay={0.1} scale={0.94} y={0} className="relative mx-auto w-full max-w-[440px] xl:max-w-[500px] 2xl:max-w-[540px]">
-          <div className="relative aspect-[1/1.04]">
-            <div aria-hidden="true" className="absolute inset-[2%] translate-x-[5%] translate-y-[4%] rotate-6 blob bg-sun" />
-            <div aria-hidden="true" className="absolute -inset-[3%] rotate-[-8deg] blob border-[3px] border-dashed border-teal/60" />
+        {/* Фото композициясы — көлденең кадр өз пропорциясында, балалар кесілмейді */}
+        <Reveal delay={0.1} scale={0.94} y={0} className="relative mx-auto w-full max-w-[560px] xl:max-w-[620px]">
+          <div className="relative" style={{ aspectRatio: image ? `${image.width} / ${image.height}` : "16 / 10" }}>
+            <div aria-hidden="true" className="absolute inset-0 translate-x-[4%] translate-y-[7%] rotate-[4deg] rounded-[56px_56px_56px_18px] bg-sun" />
+            <div aria-hidden="true" className="absolute -inset-[4%] rotate-[-3deg] rounded-[72px_72px_72px_28px] border-[3px] border-dashed border-teal/60" />
             <ShapedImage
               image={image}
               alt="«Алан» бөбекжай-балабақшасының балалары"
-              shape="blob"
-              morph
+              shape="frame"
               priority
-              sizes="(min-width: 1280px) 540px, (min-width: 1024px) 44vw, 90vw"
-              className="absolute inset-[4%] shadow-card ring-8 ring-white"
+              sizes="(min-width: 1280px) 620px, (min-width: 1024px) 48vw, 90vw"
+              className="absolute inset-0 shadow-card ring-8 ring-white"
             />
 
-            <Float className="-left-6 top-[8%] w-24" delay={0.4} slow>
+            <Float className="-left-10 -top-8 w-24" delay={0.4} slow>
               <Cloud />
             </Float>
-            <Float className="-right-2 top-[2%] w-12" twinkle>
+            <Float className="-right-3 -top-7 w-11" twinkle>
               <Star color="#FF9478" />
             </Float>
-            <Float className="right-[6%] bottom-[16%] w-14" delay={1}>
+            <Float className="-right-7 bottom-[22%] w-12" delay={1}>
               <Flower color="#A9A2EF" />
             </Float>
-            <Float className="left-[2%] bottom-[30%] w-8" twinkle delay={1.6}>
+            <Float className="-left-7 top-[40%] w-7" twinkle delay={1.6}>
               <Sparkle color="#5CCBBC" />
             </Float>
-            <Float className="-right-8 top-[42%] w-16" slow delay={2}>
+            <Float className="-bottom-10 right-[18%] w-14" slow delay={2}>
               <Ring color="#FF9478" />
             </Float>
 
-            <div className="absolute -left-4 bottom-[6%] flex items-center gap-3 rounded-[22px] bg-white px-4 py-3 shadow-card motion-safe:animate-float-slow xl:-left-10">
+            <div className="absolute -bottom-7 -left-4 flex items-center gap-3 rounded-[22px] bg-white px-4 py-3 shadow-card motion-safe:animate-float-slow xl:-left-8">
               <span className="grid size-10 place-items-center rounded-full bg-teal-soft text-teal-deep">
                 <Clock className="size-5" aria-hidden="true" />
               </span>

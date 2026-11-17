@@ -22,21 +22,21 @@ export function MobileAboutGroups({ image }: { image: SiteImage | null }) {
             <p className="mx-auto mt-4 max-w-[520px] text-[15.5px] leading-relaxed text-ink-soft">{about.text}</p>
           </Reveal>
 
-          <Reveal y={0} scale={0.96} className="relative mx-auto mt-8 w-[min(72vw,300px)]">
-            <div className="relative aspect-[4/4.7]">
-              <div aria-hidden="true" className="absolute -left-[7%] top-[7%] h-[90%] w-full rounded-t-[999px] rounded-b-[36px] bg-lav-soft" />
+          <Reveal y={0} scale={0.96} className="relative mx-auto mt-7 w-full max-w-[460px] px-1">
+            <div className="relative" style={{ aspectRatio: image ? `${image.width} / ${image.height}` : "3 / 2" }}>
+              <div aria-hidden="true" className="absolute -left-[3%] top-[8%] h-full w-full rounded-[64px_64px_24px_24px] bg-lav-soft" />
               <ShapedImage
                 image={image}
                 alt="«Алан» бөбекжай-балабақшасындағы күнделікті өмір"
-                shape="arch"
+                shape="dome"
                 tone="lav"
-                sizes="(min-width: 1280px) 460px, (min-width: 1024px) 40vw, 300px"
-                className="absolute inset-0 shadow-card ring-[6px] ring-white"
+                sizes="(min-width: 640px) 460px, 94vw"
+                className="absolute inset-0 shadow-card ring-[5px] ring-white"
               />
-              <Float className="-right-3 top-[10%] w-9" twinkle>
+              <Float className="-top-4 right-[2%] w-8" twinkle>
                 <Star color="#FFC857" />
               </Float>
-              <Float className="-left-4 bottom-[16%] w-10" delay={0.6}>
+              <Float className="-left-2 bottom-[22%] w-8" delay={0.6}>
                 <Flower color="#FF9478" />
               </Float>
               <div className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-sun px-4 py-2 font-display text-[14px] font-bold text-ink shadow-soft">
@@ -81,15 +81,13 @@ export function MobileAboutGroups({ image }: { image: SiteImage | null }) {
             <p className="mx-auto mt-2 max-w-[440px] text-[15.5px] leading-relaxed text-ink-soft">{about.groupsText}</p>
           </Reveal>
 
-          <ul className="mx-auto mt-6 grid max-w-[640px] grid-cols-2 gap-3 md:grid-cols-3">
+          <ul className="mx-auto mt-6 grid max-w-[560px] grid-cols-2 gap-2.5 min-[400px]:gap-3">
             {groups.map((g, i) => (
-              <Reveal as="li" key={g.name} y={12} delay={(i % 2) * 0.06}>
+              <Reveal as="li" key={g.name} y={12} delay={(i % 2) * 0.06} className="h-full">
                 <GroupCard group={g} index={i} compact />
               </Reveal>
             ))}
           </ul>
-
-          <p className="mx-auto mt-5 max-w-[420px] text-center text-[13.5px] font-semibold text-ink-soft">{about.groupsNote}</p>
         </div>
       </div>
       <Wave color="#FFF9F0" variant={1} className="bg-[#F4F2FE]" />

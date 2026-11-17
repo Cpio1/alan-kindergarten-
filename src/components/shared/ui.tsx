@@ -97,7 +97,7 @@ export function SectionTitle({
 
 /* ---------- Фигуралы сурет ---------- */
 
-export type Shape = "blob" | "arch" | "oval" | "pebble" | "leaf";
+export type Shape = "blob" | "arch" | "oval" | "pebble" | "leaf" | "frame" | "dome";
 
 const shapeClass: Record<Shape, string> = {
   blob: "blob",
@@ -105,6 +105,9 @@ const shapeClass: Record<Shape, string> = {
   oval: "rounded-[50%]",
   pebble: "rounded-[46%_54%_42%_58%/58%_44%_56%_42%]",
   leaf: "rounded-[60px_6px_60px_6px] sm:rounded-[90px_10px_90px_10px]",
+  /** Көлденең фотоларға: бұрыштар жұмсақ, бірақ балалар кесілмейді. */
+  frame: "rounded-[32px_32px_32px_12px] lg:rounded-[56px_56px_56px_18px]",
+  dome: "rounded-[64px_64px_24px_24px] lg:rounded-[110px_110px_32px_32px]",
 };
 
 export function ShapedImage({

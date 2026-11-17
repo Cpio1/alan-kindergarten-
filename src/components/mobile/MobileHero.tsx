@@ -29,28 +29,28 @@ export function MobileHero({ image }: { image: SiteImage | null }) {
           <p className="mx-auto mt-4 max-w-[440px] text-[16px] leading-relaxed text-ink-soft">{hero.text}</p>
         </Reveal>
 
-        {/* Фигуралы рамкадағы фото — экраннан шықпайды */}
-        <Reveal y={0} scale={0.96} delay={0.15} className="relative mx-auto mt-7 w-[min(84vw,360px)]">
-          <div className="relative aspect-[1/0.92]">
-            <div aria-hidden="true" className="absolute inset-0 translate-x-[3%] translate-y-[4%] rotate-[5deg] blob bg-sun" />
+        {/* Көлденең фото өз пропорциясында — экраннан шықпайды, балалар кесілмейді */}
+        <Reveal y={0} scale={0.96} delay={0.15} className="relative mx-auto mt-7 w-full max-w-[460px] px-1">
+          <div className="relative" style={{ aspectRatio: image ? `${image.width} / ${image.height}` : "16 / 10" }}>
+            <div aria-hidden="true" className="absolute inset-0 translate-x-[2.5%] translate-y-[6%] rotate-[3deg] rounded-[32px_32px_32px_12px] bg-sun" />
             <ShapedImage
               image={image}
               alt="«Алан» бөбекжай-балабақшасының балалары"
-              shape="blob"
+              shape="frame"
               priority
-              sizes="(min-width: 1280px) 540px, (min-width: 1024px) 44vw, 90vw"
-              className="absolute inset-0 shadow-card ring-[6px] ring-white"
+              sizes="(min-width: 640px) 460px, 94vw"
+              className="absolute inset-0 shadow-card ring-[5px] ring-white"
             />
-            <Float className="-left-2 top-[6%] w-14" slow>
+            <Float className="-left-1 -top-5 w-12" slow>
               <Cloud />
             </Float>
-            <Float className="right-[2%] -top-2 w-8" twinkle>
+            <Float className="-top-4 right-[3%] w-7" twinkle>
               <Star color="#FF9478" />
             </Float>
-            <Float className="right-[-2%] bottom-[8%] w-10" delay={0.8}>
+            <Float className="-bottom-5 right-[6%] w-9" delay={0.8}>
               <Flower color="#A9A2EF" />
             </Float>
-            <Float className="left-[4%] bottom-[12%] w-6" twinkle delay={1.2}>
+            <Float className="-bottom-3 left-[8%] w-5" twinkle delay={1.2}>
               <Sparkle color="#5CCBBC" />
             </Float>
           </div>

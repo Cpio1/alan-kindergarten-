@@ -92,17 +92,18 @@ export const about = {
   ],
   groupsTitle: "Біздің топтарымыз",
   groupsText: "Әр балаға дамуға, ойнауға және жаңа білім алуға мүмкіндік беретін орта.",
-  groupsNote: "Топтардың атаулары мен жас ерекшеліктері жақын арада нақтыланады.",
 };
 
-/** Топ атаулары уақытша — нақты атаулар берілгенде осы жерде ауыстырыңыз. */
-export const groups: { name: string; accent: Accent; art: "sun" | "cloud" | "star" | "flower" | "rainbow" | "bird" }[] = [
-  { name: "1-топ", accent: "sun", art: "sun" },
-  { name: "2-топ", accent: "teal", art: "cloud" },
-  { name: "3-топ", accent: "coral", art: "flower" },
-  { name: "4-топ", accent: "lav", art: "star" },
-  { name: "5-топ", accent: "teal", art: "rainbow" },
-  { name: "6-топ", accent: "sun", art: "bird" },
+export type GroupArtName = "sun" | "cloud" | "star" | "flower" | "rainbow" | "bird" | "foal" | "moon" | "sprout";
+
+/** Топтар: атауы және балалардың жасы. */
+export const groups: { name: string; age: string; accent: Accent; art: GroupArtName }[] = [
+  { name: "Жұлдыз тобы", age: "1,6–2 жас", accent: "lav", art: "star" },
+  { name: "Құлыншақ тобы", age: "2 жас", accent: "coral", art: "foal" },
+  { name: "Балапан тобы", age: "3 жас", accent: "sun", art: "bird" },
+  { name: "Айбөбек тобы", age: "4 жас", accent: "teal", art: "moon" },
+  { name: "Балдырған тобы", age: "4 жас", accent: "lav", art: "sprout" },
+  { name: "Күншуақ тобы", age: "5 жас", accent: "coral", art: "sun" },
 ];
 
 export type ActivityIcon = "english" | "speech" | "taekwondo" | "dance" | "music" | "salt" | "bus";

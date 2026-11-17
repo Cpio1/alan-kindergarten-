@@ -3,80 +3,133 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Expand, ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { gallerySection } from "@/data/kindergarten";
 import type { SiteImage } from "@/lib/images";
 import { cn, Flower, Sparkle, Star } from "./Decor";
 import { Lightbox } from "./Lightbox";
 import { PhotoPlaceholder } from "./ui";
 
-/** Desktop асимметриялы торы: әр 6 сурет 4 бағанды 3 жолды толық толтырады. */
-const desktopSpans = [
-  "col-span-2 row-span-2 rounded-[40px_40px_40px_12px]",
-  "rounded-[28px]",
-  "row-span-2 rounded-[999px_999px_28px_28px]",
-  "rounded-[28px_8px_28px_28px]",
-  "col-span-2 rounded-[28px_28px_28px_8px]",
-  "col-span-2 rounded-[8px_28px_28px_28px]",
-];
+/**
+ * Галерея «justified» қатарлармен құрылады: бір қатардағы суреттердің биіктігі бірдей,
+ * ал ені әр суреттің өз пропорциясына тең. Сондықтан фото ешқашан созылмайды
+ * және кесілмейді, ал қатарлардағы сурет саны әртүрлі болғандықтан өлшемдері де алуан.
+ *
+ * Desktop: «ірі» қатар (2–3 сурет) мен «ықшам» қатар (3–4 сурет) алмасады.
+ * Mobile: бір кең сурет, содан кейін жұп-жұп қатарлар — бөлек ықшам композиция.
+ */
+type Layout = { targets: number[]; maxPerRow: number };
 
-const mobileRadius = ["rounded-[22px]", "rounded-[22px_22px_22px_6px]", "rounded-[22px_22px_6px_22px]", "rounded-[22px_6px_22px_22px]"];
+const layouts: Record<"desktop" | "mobile", Layout> = {
+  // targets — қатардағы пропорциялар қосындысы: үлкен болса, қатар аласа әрі суреттер көп.
+  desktop: { targets: [3.6, 4.8], maxPerRow: 5 },
+  mobile: { targets: [2.2], maxPerRow: 2 },
+};
+
+type Item = { img: SiteImage; index: number; ratio: number };
+/** fill — қатардың толу үлесі (1 = толық ен). Соңғы қысқа қатар созылмай, ортада тұрады. */
+type Row = { items: Item[]; fill: number };
+
+const ratioOf = (img: SiteImage) => Math.min(Math.max(img.width / img.height, 0.6), 2.2);
+
+function buildRows(items: Item[], { targets, maxPerRow }: Layout, offset = 0, allowShortLast = true): Row[] {
+  const rows: Row[] = [];
+  let row: Item[] = [];
+  let sum = 0;
+  const target = () => targets[(rows.length + offset) % targets.length];
+  for (const it of items) {
+    // Келесі сурет қатарды мақсатқа жақындатпаса — қатарды жабамыз.
+    if (row.length && (row.length >= maxPerRow || Math.abs(sum + it.ratio - target()) > Math.abs(sum - target()))) {
+      rows.push({ items: row, fill: 1 });
+      row = [];
+      sum = 0;
+    }
+    row.push(it);
+    sum += it.ratio;
+  }
+  if (row.length) {
+    const t = target();
+    rows.push({ items: row, fill: allowShortLast && sum < t * 0.85 ? sum / t : 1 });
+  }
+  return rows;
+}
+
+/** Әр суретке әртүрлі органикалық бұрыштар. */
+const desktopRadius = [
+  "rounded-[36px_36px_36px_12px]",
+  "rounded-[24px]",
+  "rounded-[12px_36px_36px_36px]",
+  "rounded-[36px_12px_36px_36px]",
+  "rounded-[28px]",
+  "rounded-[36px_36px_12px_36px]",
+  "rounded-[48px_24px_48px_24px]",
+];
+const mobileRadius = ["rounded-[24px_24px_24px_8px]", "rounded-[18px]", "rounded-[8px_24px_24px_24px]", "rounded-[24px_8px_24px_24px]"];
 
 export function Gallery({ images, variant }: { images: SiteImage[]; variant: "desktop" | "mobile" }) {
   const [expanded, setExpanded] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const initial = gallerySection.initialCount;
-  const visible = expanded ? images : images.slice(0, initial);
   const hasMore = images.length > initial;
   const isDesktop = variant === "desktop";
 
+  // Алғашқы 6 сурет өз алдына толық қатарлар құрайды — «Тағы көрсету» басылғанда
+  // жоғарғы бөлік қайта орналаспайды, жаңа қатарлар тек төменнен қосылады.
+  const { firstRows, restRows } = useMemo(() => {
+    const items = images.map((img, index) => ({ img, index, ratio: ratioOf(img) }));
+    const layout = layouts[variant];
+    const firstRows = buildRows(items.slice(0, initial), layout, 0, images.length <= initial);
+    const restRows = buildRows(items.slice(initial), layout, firstRows.length);
+    return { firstRows, restRows };
+  }, [images, initial, variant]);
+
   if (!images.length) return <GalleryEmpty desktop={isDesktop} />;
+
+  const gap = isDesktop ? "gap-4 xl:gap-5" : "gap-2.5";
+  const radius = isDesktop ? desktopRadius : mobileRadius;
+  const sizesFor = (row: Row, it: Item) => {
+    const share = (it.ratio / row.items.reduce((s, r) => s + r.ratio, 0)) * row.fill;
+    const vw = Math.max(20, Math.round(share * 100));
+    return isDesktop ? `(min-width: 1280px) ${Math.round(share * 1000)}px, ${vw}vw` : `${vw}vw`;
+  };
+
+  const renderRows = (rows: Row[], animateFrom: number) =>
+    rows.map((row, r) => (
+      <motion.ul
+        key={row.items[0].img.src}
+        className={cn("flex w-full", gap, row.fill < 1 && "mx-auto")}
+        style={row.fill < 1 ? { width: `${(row.fill * 100).toFixed(2)}%` } : undefined}
+        initial="hidden"
+        whileInView="show"
+        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+        viewport={{ once: true, margin: "0px 0px -6% 0px" }}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: animateFrom ? 0.05 : 0 } } }}
+      >
+        {row.items.map((it) => (
+          <motion.li
+            key={it.img.src}
+            variants={{
+              hidden: { opacity: 0, y: isDesktop ? 22 : 14, scale: 0.96 },
+              show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+            }}
+            className={cn("relative min-w-0 overflow-hidden bg-cream-deep shadow-soft", radius[(it.index + r) % radius.length])}
+            style={{ flex: `${it.ratio} 1 0%`, aspectRatio: String(it.ratio) }}
+          >
+            <Thumb img={it.img} index={it.index} onOpen={setLightbox} sizes={sizesFor(row, it)} />
+          </motion.li>
+        ))}
+      </motion.ul>
+    ));
 
   return (
     <>
-      {isDesktop ? (
-        <ul className="grid auto-rows-[190px] grid-flow-dense grid-cols-4 gap-4 xl:auto-rows-[210px] xl:gap-5">
-          <AnimatePresence initial={false}>
-            {visible.map((img, i) => (
-              <motion.li
-                key={img.src}
-                layout
-                initial={{ opacity: 0, y: 24, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                viewport={{ once: true, margin: "0px 0px -5% 0px" }}
-                transition={{ duration: 0.55, delay: (i % initial) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className={cn("relative overflow-hidden shadow-soft", desktopSpans[i % desktopSpans.length])}
-              >
-                <Thumb img={img} index={i} onOpen={setLightbox} sizes="(min-width: 1280px) 600px, 50vw" />
-              </motion.li>
-            ))}
-          </AnimatePresence>
-        </ul>
-      ) : (
-        /* Мобильде суреттер өз пропорциясын сақтайды — маңызды бөліктер кесілмейді. */
-        <ul className="columns-2 gap-2.5 md:columns-3">
-          <AnimatePresence initial={false}>
-            {visible.map((img, i) => (
-              <motion.li
-                key={img.src}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className={cn("relative mb-2.5 break-inside-avoid overflow-hidden shadow-soft", mobileRadius[i % mobileRadius.length])}
-                style={{ aspectRatio: `${img.width} / ${img.height}` }}
-              >
-                <Thumb img={img} index={i} onOpen={setLightbox} sizes="(min-width: 768px) 33vw, 50vw" />
-              </motion.li>
-            ))}
-          </AnimatePresence>
-        </ul>
-      )}
+      <div className={cn("flex flex-col", gap, isDesktop && "mx-auto max-w-[940px] xl:max-w-[1000px]")}>
+        {renderRows(firstRows, 0)}
+        <AnimatePresence initial={false}>{expanded && renderRows(restRows, 1)}</AnimatePresence>
+      </div>
 
       {hasMore && (
-        <div className={cn("flex justify-center", isDesktop ? "mt-10" : "mt-6")}>
+        <div className={cn("flex justify-center", isDesktop ? "mt-8" : "mt-6")}>
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
@@ -121,10 +174,10 @@ function Thumb({
         alt={`Балабақша өмірінен фото ${index + 1}`}
         fill
         sizes={sizes}
-        className="object-cover transition-transform duration-700 ease-out group-hover/thumb:scale-105"
+        className="object-cover transition-transform duration-700 ease-out group-hover/thumb:scale-[1.04]"
       />
       <span className="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/thumb:opacity-100" />
-      <span className="absolute bottom-3 right-3 grid size-10 scale-75 place-items-center rounded-full bg-white/95 text-ink opacity-0 shadow-soft transition-all duration-300 group-hover/thumb:scale-100 group-hover/thumb:opacity-100">
+      <span className="absolute bottom-3 right-3 hidden size-10 scale-75 place-items-center rounded-full bg-white/95 text-ink opacity-0 shadow-soft transition-all duration-300 group-hover/thumb:scale-100 group-hover/thumb:opacity-100 lg:grid">
         <Expand className="size-4" aria-hidden="true" />
       </span>
     </button>

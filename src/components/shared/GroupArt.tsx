@@ -1,5 +1,6 @@
+import type { GroupArtName as Art } from "@/data/kindergarten";
+
 /** Топ карточкаларына арналған балаларға тән қарапайым иллюстрациялар. */
-type Art = "sun" | "cloud" | "star" | "flower" | "rainbow" | "bird";
 
 const ink = "#263640";
 
@@ -93,6 +94,43 @@ export function GroupArt({ art, className }: { art: Art; className?: string }) {
           <path d="M30 26c-2-7 2-12 6-12-1 4 0 8 2 11" fill="#FF9478" />
           <circle cx="52" cy="45" r="2.4" fill="#FF9478" opacity=".6" />
           <path d="M32 63v8M42 63v8" stroke="#FFB020" strokeWidth="3" strokeLinecap="round" />
+        </g>
+      )}
+      {art === "foal" && (
+        <g>
+          <path d="M24 26l-3-15 12 9z" fill="#E98A6C" />
+          <path d="M56 26l3-15-12 9z" fill="#E98A6C" />
+          <ellipse cx="40" cy="41" rx="19" ry="23" fill="#FF9478" />
+          <path d="M30 20c2-7 8-10 12-8 3-3 9-2 10 3-4 0-6 2-7 5-5-3-10-2-15 0z" fill="#A9A2EF" />
+          <ellipse cx="40" cy="56" rx="14" ry="10" fill="#FFE6DE" />
+          <circle cx="35" cy="56" r="1.8" fill={ink} />
+          <circle cx="45" cy="56" r="1.8" fill={ink} />
+          <circle cx="32" cy="39" r="2.6" fill={ink} />
+          <circle cx="48" cy="39" r="2.6" fill={ink} />
+          <circle cx="33" cy="38" r=".9" fill="#FFFFFF" />
+          <circle cx="49" cy="38" r=".9" fill="#FFFFFF" />
+          <circle cx="27" cy="46" r="2.6" fill="#C24A2C" opacity=".35" />
+          <circle cx="53" cy="46" r="2.6" fill="#C24A2C" opacity=".35" />
+        </g>
+      )}
+      {art === "moon" && (
+        <g>
+          <path d="M39.67 16.05A26 26 0 1 0 63.37 47.67 20 20 0 0 1 39.67 16.05z" fill="#FFC857" />
+          <path d="M20 42q3 3 6 0M30 47q3 3 6 0" stroke={ink} strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path d="M24 54q4 3 8 0" stroke={ink} strokeWidth="2" strokeLinecap="round" fill="none" />
+          <circle cx="19" cy="50" r="2.4" fill="#FF9478" opacity=".55" />
+          <path d="M62 50l1.8 4 4.2.5-3.1 2.8.9 4.2-3.8-2.2-3.8 2.2.9-4.2-3.1-2.8 4.2-.5z" fill="#5CCBBC" />
+          <circle cx="66" cy="16" r="2.4" fill="#A9A2EF" />
+        </g>
+      )}
+      {art === "sprout" && (
+        <g>
+          <path d="M40 46V26" stroke="#5CCBBC" strokeWidth="4" strokeLinecap="round" />
+          <path d="M40 32c-3-10-12-14-21-12 1 9 9 15 21 12z" fill="#5CCBBC" />
+          <path d="M40 27c3-10 12-14 21-12-1 9-9 15-21 12z" fill="#7FD8CB" />
+          <path d="M20 46h40l-5 26H25z" fill="#FF9478" />
+          <rect x="17" y="42" width="46" height="9" rx="4.5" fill="#E98A6C" />
+          <Face x={40} y={60} s={0.8} />
         </g>
       )}
     </svg>
