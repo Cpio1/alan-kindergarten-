@@ -20,24 +20,24 @@ const rows = [
 export function ContactList({ compact }: { compact?: boolean }) {
   return (
     <div>
-      <p className={cn("font-display font-extrabold text-ink", compact ? "text-[19px]" : "text-[22px]")}>{site.name}</p>
-      <ul className={cn("grid", compact ? "mt-4 gap-2.5" : "mt-5 gap-3")}>
+      <p className={cn("font-display font-extrabold text-ink", compact ? "text-[17px]" : "text-[19px]")}>{site.name}</p>
+      <ul className={cn("grid", compact ? "mt-3 gap-2" : "mt-3 gap-2")}>
         {rows.map((r) => {
           const Icon = r.icon;
           const content = (
             <>
-              <span className={cn("grid shrink-0 place-items-center rounded-2xl", r.tone, compact ? "size-11" : "size-12")}>
+              <span className={cn("grid shrink-0 place-items-center rounded-2xl", r.tone, compact ? "size-10" : "size-9")}>
                 <Icon className="size-5" aria-hidden="true" />
               </span>
               <span className="min-w-0">
-                <span className="block text-[12.5px] font-bold uppercase tracking-wide text-ink-soft">{r.label}</span>
-                <span className={cn("block break-words font-display font-bold text-ink", compact ? "text-[16px]" : "text-[18px]")}>{r.value}</span>
+                <span className="block text-[11.5px] font-bold uppercase tracking-wide text-ink-soft">{r.label}</span>
+                <span className={cn("block break-words font-display font-bold text-ink", compact ? "text-[15px]" : "text-[16px]")}>{r.value}</span>
               </span>
             </>
           );
           const cls = cn(
-            "flex items-center gap-3.5 rounded-[20px] bg-white ring-1 ring-ink/5",
-            compact ? "p-3" : "p-3.5",
+            "flex items-center gap-3 rounded-[18px] bg-white ring-1 ring-ink/5",
+            compact ? "p-2.5" : "px-3 py-2.5",
             r.href && "transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-soft"
           );
           return (

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title, description },
   robots: { index: true, follow: true },
   formatDetection: { telephone: true, address: false, email: false },
-  other: { "color-scheme": "light only" },
+  other: { "color-scheme": "light only", "darkreader-lock": "" },
 };
 
 export const viewport: Viewport = {

@@ -6,7 +6,7 @@ import { cn } from "./Decor";
 export function MapCard({ className }: { className?: string }) {
   if (map.embedUrl) {
     return (
-      <div className={cn("overflow-hidden bg-teal-soft shadow-card ring-[6px] ring-white", className)}>
+      <div className={cn("overflow-hidden bg-teal-soft shadow-card ring-[5px] ring-white", className)}>
         <iframe
           src={map.embedUrl}
           title={`2GIS картасы: ${contacts.address}`}
@@ -19,7 +19,7 @@ export function MapCard({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn("isolate overflow-hidden bg-[#e9f7f4] shadow-card ring-[6px] ring-white", className)}>
+    <div className={cn("isolate overflow-hidden bg-[#e9f7f4] shadow-card ring-[5px] ring-white", className)}>
       {/* Иллюстрациялық карта фоны (нақты орын емес) */}
       <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 -z-10 size-full" aria-hidden="true">
         <rect width="400" height="300" fill="#e9f7f4" />
@@ -33,10 +33,10 @@ export function MapCard({ className }: { className?: string }) {
         <circle cx="60" cy="250" r="26" fill="#ffe6de" />
       </svg>
       <div className="flex size-full flex-col items-center justify-center p-6 text-center">
-        <span className="grid size-16 place-items-center rounded-full bg-white text-coral-deep shadow-card ring-8 ring-coral/20 motion-safe:animate-float">
-          <MapPin className="size-8" aria-hidden="true" />
+        <span className="grid size-14 place-items-center rounded-full bg-white text-coral-deep shadow-card ring-[6px] ring-coral/20 motion-safe:animate-float">
+          <MapPin className="size-7" aria-hidden="true" />
         </span>
-        <p className="mt-4 max-w-[280px] font-display text-[17px] font-bold leading-snug text-ink">{contacts.address}</p>
+        <p className="mt-3 max-w-[280px] font-display text-[16px] font-bold leading-snug text-ink">{contacts.address}</p>
         <p className="mt-1.5 max-w-[300px] text-[14px] font-semibold text-ink-soft">{contactsSection.mapPlaceholder}</p>
         {map.linkUrl && (
           <a

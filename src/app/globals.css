@@ -73,12 +73,12 @@
 
 :root {
   color-scheme: light only;
-  --header-h: 68px;
+  --header-h: 58px;
 }
 
 @media (min-width: 1024px) {
   :root {
-    --header-h: 80px;
+    --header-h: 64px;
   }
 }
 
@@ -112,11 +112,11 @@ body {
 
 /* Якорьге өткенде тақырып тіркелген Header астында қалмайды. */
 [data-section] {
-  scroll-margin-top: calc(var(--header-h) + 12px);
+  scroll-margin-top: calc(var(--header-h) + 4px);
 }
 @media (min-width: 1024px) {
   [data-section] {
-    scroll-margin-top: calc(var(--header-h) + 20px);
+    scroll-margin-top: calc(var(--header-h) + 8px);
   }
 }
 
@@ -169,7 +169,7 @@ p {
   width: 100%;
   margin-inline: auto;
   padding-inline: 16px;
-  max-width: 1240px;
+  max-width: 1200px;
   @media (min-width: 640px) {
     padding-inline: 24px;
   }

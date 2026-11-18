@@ -40,7 +40,7 @@ export function DesktopHeader({ logo }: { logo: SiteImage | null }) {
                     onClick={(e) => go(e, item.id)}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
-                      "relative block whitespace-nowrap rounded-full px-2 py-2 text-[13.5px] font-bold transition-colors duration-200 xl:px-3 xl:text-[15px]",
+                      "relative block whitespace-nowrap rounded-full px-2 py-1.5 text-[13px] font-bold transition-colors duration-200 xl:px-2.5 xl:text-[14px]",
                       isActive ? "bg-teal-soft text-teal-deep" : "text-ink/80 hover:bg-white hover:text-ink"
                     )}
                   >
@@ -54,10 +54,10 @@ export function DesktopHeader({ logo }: { logo: SiteImage | null }) {
 
         <a
           href={contacts.phoneHref}
-          className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-2 rounded-full bg-sun px-3 font-display text-[14px] font-semibold text-ink shadow-soft transition-transform duration-300 hover:-translate-y-0.5 2xl:px-5"
+          className="inline-flex min-h-[40px] min-w-[40px] shrink-0 items-center justify-center gap-2 rounded-full bg-sun px-3 font-display text-[14px] font-semibold text-ink shadow-soft transition-transform duration-300 hover:-translate-y-0.5 2xl:px-4"
           aria-label={`Қоңырау шалу: ${contacts.phoneDisplay}`}
         >
-          <Phone className="size-[18px]" aria-hidden="true" />
+          <Phone className="size-4" aria-hidden="true" />
           <span className="hidden 2xl:inline">{contacts.phoneDisplay}</span>
         </a>
       </div>

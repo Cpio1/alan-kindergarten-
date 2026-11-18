@@ -47,10 +47,10 @@ export function GroupCard({ group, index, compact }: { group: Group; index: numb
       className={cn(
         "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white font-display font-bold shadow-soft",
         a.text,
-        compact ? "px-2.5 py-1 text-[12.5px]" : "px-3.5 py-1.5 text-[14.5px]"
+        compact ? "px-2 py-0.5 text-[12px]" : "px-3 py-1 text-[13px]"
       )}
     >
-      <span className={cn("rounded-full", a.bg, compact ? "size-1.5" : "size-2")} aria-hidden="true" />
+      <span className={cn("rounded-full", a.bg, compact ? "size-1.5" : "size-1.5")} aria-hidden="true" />
       {group.age}
     </span>
   );
@@ -60,7 +60,7 @@ export function GroupCard({ group, index, compact }: { group: Group; index: numb
       className={cn(
         "group/card relative isolate h-full overflow-hidden ring-1 ring-white/70",
         cardBg[group.accent],
-        compact ? cn(compactCorners[index % compactCorners.length], "p-3.5") : cn(corners[index % corners.length], "p-5 xl:p-6"),
+        compact ? cn(compactCorners[index % compactCorners.length], "p-3") : cn(corners[index % corners.length], "p-4 2xl:p-5"),
         !compact && "transition-shadow duration-300 hover:shadow-card"
       )}
     >
@@ -69,7 +69,7 @@ export function GroupCard({ group, index, compact }: { group: Group; index: numb
         aria-hidden="true"
         className={cn(
           "pointer-events-none absolute -z-10 font-display font-black leading-none text-white/60",
-          compact ? "-bottom-2 right-2 text-[64px]" : "-bottom-5 right-4 text-[112px]"
+          compact ? "-bottom-2 right-2 text-[52px]" : "-bottom-4 right-4 text-[84px]"
         )}
       >
         {index + 1}
@@ -77,34 +77,34 @@ export function GroupCard({ group, index, compact }: { group: Group; index: numb
       <Sparkle
         className={cn(
           "absolute",
-          compact ? "right-3 top-3 size-3" : "right-5 top-5 size-4 transition-transform duration-500 group-hover/card:rotate-90"
+          compact ? "right-2.5 top-2.5 size-2.5" : "right-4 top-4 size-3.5 transition-transform duration-500 group-hover/card:rotate-90"
         )}
         color="#FFFFFF"
       />
-      {!compact && <Star className="absolute right-12 top-9 size-2.5 opacity-80" color="#FFFFFF" />}
+      {!compact && <Star className="absolute right-10 top-8 size-2 opacity-80" color="#FFFFFF" />}
 
       {compact ? (
         <div className="flex h-full flex-col items-start">
-          <span className="grid size-[54px] place-items-center bg-white shadow-soft blob">
-            <GroupArt art={group.art} className="size-10" />
+          <span className="grid size-[44px] place-items-center bg-white shadow-soft blob">
+            <GroupArt art={group.art} className="size-8" />
           </span>
-          <h4 className="mt-2.5 font-display font-extrabold leading-[1.1] text-ink [overflow-wrap:anywhere]">
-            <span className="block text-[clamp(16px,4.8vw,19px)]">{main}</span>
-            {suffix && <span className="block text-[13px] font-bold text-ink-soft">{suffix}</span>}
+          <h4 className="mt-2 font-display font-extrabold leading-[1.1] text-ink [overflow-wrap:anywhere]">
+            <span className="block text-[clamp(15px,4.2vw,17px)]">{main}</span>
+            {suffix && <span className="block text-[12px] font-bold text-ink-soft">{suffix}</span>}
           </h4>
-          <div className="mt-auto pt-2.5">{age}</div>
+          <div className="mt-auto pt-2">{age}</div>
         </div>
       ) : (
-        <div className="flex items-center gap-4 xl:gap-5">
-          <span className="grid size-[78px] shrink-0 place-items-center bg-white shadow-soft blob transition-transform duration-500 group-hover/card:-rotate-6 group-hover/card:scale-105 xl:size-[88px]">
-            <GroupArt art={group.art} className="size-[58px] xl:size-[64px]" />
+        <div className="flex items-center gap-3.5">
+          <span className="grid size-[58px] shrink-0 place-items-center bg-white shadow-soft blob transition-transform duration-500 group-hover/card:-rotate-6 group-hover/card:scale-105 2xl:size-[66px]">
+            <GroupArt art={group.art} className="size-[42px] 2xl:size-[48px]" />
           </span>
           <div className="min-w-0">
             <h4 className="font-display font-extrabold leading-[1.1] text-ink">
-              <span className="block text-[22px] xl:text-[24px]">{main}</span>
-              {suffix && <span className="mt-0.5 block text-[15px] font-bold text-ink-soft">{suffix}</span>}
+              <span className="block text-[18px] 2xl:text-[20px]">{main}</span>
+              {suffix && <span className="mt-0.5 block text-[13px] font-bold text-ink-soft">{suffix}</span>}
             </h4>
-            <div className="mt-2.5">{age}</div>
+            <div className="mt-2">{age}</div>
           </div>
         </div>
       )}

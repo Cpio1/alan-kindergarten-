@@ -22,8 +22,8 @@ type Layout = { targets: number[]; maxPerRow: number };
 
 const layouts: Record<"desktop" | "mobile", Layout> = {
   // targets — қатардағы пропорциялар қосындысы: үлкен болса, қатар аласа әрі суреттер көп.
-  desktop: { targets: [3.6, 4.8], maxPerRow: 5 },
-  mobile: { targets: [2.2], maxPerRow: 2 },
+  desktop: { targets: [4.4, 5.6], maxPerRow: 5 },
+  mobile: { targets: [2.6], maxPerRow: 2 },
 };
 
 type Item = { img: SiteImage; index: number; ratio: number };
@@ -56,15 +56,15 @@ function buildRows(items: Item[], { targets, maxPerRow }: Layout, offset = 0, al
 
 /** Әр суретке әртүрлі органикалық бұрыштар. */
 const desktopRadius = [
-  "rounded-[36px_36px_36px_12px]",
-  "rounded-[24px]",
-  "rounded-[12px_36px_36px_36px]",
-  "rounded-[36px_12px_36px_36px]",
-  "rounded-[28px]",
-  "rounded-[36px_36px_12px_36px]",
-  "rounded-[48px_24px_48px_24px]",
+  "rounded-[28px_28px_28px_10px]",
+  "rounded-[20px]",
+  "rounded-[10px_28px_28px_28px]",
+  "rounded-[28px_10px_28px_28px]",
+  "rounded-[22px]",
+  "rounded-[28px_28px_10px_28px]",
+  "rounded-[36px_18px_36px_18px]",
 ];
-const mobileRadius = ["rounded-[24px_24px_24px_8px]", "rounded-[18px]", "rounded-[8px_24px_24px_24px]", "rounded-[24px_8px_24px_24px]"];
+const mobileRadius = ["rounded-[20px_20px_20px_7px]", "rounded-[16px]", "rounded-[7px_20px_20px_20px]", "rounded-[20px_7px_20px_20px]"];
 
 export function Gallery({ images, variant }: { images: SiteImage[]; variant: "desktop" | "mobile" }) {
   const [expanded, setExpanded] = useState(false);
@@ -85,12 +85,12 @@ export function Gallery({ images, variant }: { images: SiteImage[]; variant: "de
 
   if (!images.length) return <GalleryEmpty desktop={isDesktop} />;
 
-  const gap = isDesktop ? "gap-4 xl:gap-5" : "gap-2.5";
+  const gap = isDesktop ? "gap-3" : "gap-2";
   const radius = isDesktop ? desktopRadius : mobileRadius;
   const sizesFor = (row: Row, it: Item) => {
     const share = (it.ratio / row.items.reduce((s, r) => s + r.ratio, 0)) * row.fill;
     const vw = Math.max(20, Math.round(share * 100));
-    return isDesktop ? `(min-width: 1280px) ${Math.round(share * 1000)}px, ${vw}vw` : `${vw}vw`;
+    return isDesktop ? `(min-width: 1280px) ${Math.round(share * 840)}px, ${vw}vw` : `${vw}vw`;
   };
 
   const renderRows = (rows: Row[], animateFrom: number) =>
@@ -123,19 +123,19 @@ export function Gallery({ images, variant }: { images: SiteImage[]; variant: "de
 
   return (
     <>
-      <div className={cn("flex flex-col", gap, isDesktop && "mx-auto max-w-[940px] xl:max-w-[1000px]")}>
+      <div className={cn("flex flex-col", gap, isDesktop && "mx-auto max-w-[780px] xl:max-w-[820px] 2xl:max-w-[920px]")}>
         {renderRows(firstRows, 0)}
         <AnimatePresence initial={false}>{expanded && renderRows(restRows, 1)}</AnimatePresence>
       </div>
 
       {hasMore && (
-        <div className={cn("flex justify-center", isDesktop ? "mt-8" : "mt-6")}>
+        <div className={cn("flex justify-center", isDesktop ? "mt-5" : "mt-4")}>
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
             aria-expanded={expanded}
             className={cn(
-              "group inline-flex min-h-[48px] items-center gap-2 rounded-full bg-white px-7 font-display text-[15px] font-semibold text-ink shadow-soft ring-2 ring-teal/40 transition-all duration-300 hover:ring-teal-deep motion-safe:hover:-translate-y-0.5",
+              "group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-white px-6 font-display text-[14.5px] font-semibold text-ink shadow-soft ring-2 ring-teal/40 transition-all duration-300 hover:ring-teal-deep motion-safe:hover:-translate-y-0.5",
               !isDesktop && "w-full max-w-[320px] justify-center"
             )}
           >

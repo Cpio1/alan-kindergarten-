@@ -135,7 +135,7 @@ export function Wave({
     <svg
       viewBox="0 0 1440 80"
       preserveAspectRatio="none"
-      className={cn("block h-[34px] w-full sm:h-[48px] lg:h-[64px]", flip && "rotate-180", className)}
+      className={cn("block h-[22px] w-full sm:h-[32px] lg:h-[40px] 2xl:h-[48px]", flip && "rotate-180", className)}
       aria-hidden="true"
       focusable="false"
     >

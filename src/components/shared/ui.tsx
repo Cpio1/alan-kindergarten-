@@ -10,7 +10,7 @@ import { site } from "@/data/kindergarten";
 type BtnVariant = "primary" | "sun" | "ghost" | "white" | "coral";
 
 const btnBase =
-  "group/btn inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-full px-6 font-display text-[15px] font-semibold leading-tight transition-[transform,box-shadow,background-color,color] duration-300 ease-out active:scale-[0.97] motion-safe:hover:-translate-y-0.5";
+  "group/btn inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 font-display text-[14.5px] font-semibold leading-tight transition-[transform,box-shadow,background-color,color] duration-300 ease-out active:scale-[0.97] motion-safe:hover:-translate-y-0.5";
 
 const btnVariants: Record<BtnVariant, string> = {
   primary: "bg-teal-deep text-white shadow-pop hover:bg-[#0f6a5e]",
@@ -50,12 +50,12 @@ export function Eyebrow({ children, className, color = "teal" }: { children: Rea
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] font-bold tracking-wide",
+        "inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12.5px] font-bold tracking-wide",
         map[color],
         className
       )}
     >
-      <Sparkle className="size-3.5" color="currentColor" />
+      <Sparkle className="size-3" color="currentColor" />
       {children}
     </span>
   );
@@ -84,13 +84,13 @@ export function SectionTitle({
       <h2
         id={id}
         className={cn(
-          "font-display text-[28px] font-extrabold leading-[1.15] text-ink sm:text-[34px] lg:text-[40px]",
-          eyebrow && "mt-3"
+          "font-display text-[24px] font-extrabold leading-[1.15] text-ink sm:text-[28px] lg:text-[30px] xl:text-[32px] 2xl:text-[36px]",
+          eyebrow && "mt-2"
         )}
       >
         {title}
       </h2>
-      {subtitle && <p className="mt-3 text-[16px] leading-relaxed text-ink-soft lg:text-[17px]">{subtitle}</p>}
+      {subtitle && <p className="mt-2 text-[15px] leading-relaxed text-ink-soft lg:text-[16px]">{subtitle}</p>}
     </div>
   );
 }
@@ -106,8 +106,8 @@ const shapeClass: Record<Shape, string> = {
   pebble: "rounded-[46%_54%_42%_58%/58%_44%_56%_42%]",
   leaf: "rounded-[60px_6px_60px_6px] sm:rounded-[90px_10px_90px_10px]",
   /** Көлденең фотоларға: бұрыштар жұмсақ, бірақ балалар кесілмейді. */
-  frame: "rounded-[32px_32px_32px_12px] lg:rounded-[56px_56px_56px_18px]",
-  dome: "rounded-[64px_64px_24px_24px] lg:rounded-[110px_110px_32px_32px]",
+  frame: "rounded-[26px_26px_26px_10px] lg:rounded-[40px_40px_40px_14px]",
+  dome: "rounded-[52px_52px_20px_20px] lg:rounded-[80px_80px_26px_26px]",
 };
 
 export function ShapedImage({
@@ -197,16 +197,16 @@ export function Logo({ image, compact, light }: { image: SiteImage | null; compa
           height={image.height}
           sizes="56px"
           priority
-          className={cn("w-auto shrink-0 object-contain", compact ? "h-10" : "h-11 lg:h-12")}
+          className={cn("w-auto shrink-0 object-contain", compact ? "h-9" : "h-10")}
         />
       ) : (
-        <LogoMark className={cn("shrink-0", compact ? "size-10" : "size-11 lg:size-12")} />
+        <LogoMark className={cn("shrink-0", compact ? "size-9" : "size-10")} />
       )}
       <span className="flex min-w-0 flex-col leading-none">
-        <span className={cn("font-display text-[20px] font-extrabold tracking-tight lg:text-[22px]", light ? "text-white" : "text-ink")}>
+        <span className={cn("font-display text-[18px] font-extrabold tracking-tight lg:text-[19px]", light ? "text-white" : "text-ink")}>
           {site.shortName}
         </span>
-        <span className={cn("mt-1 truncate text-[11px] font-semibold lg:text-[12px]", light ? "text-white/80" : "text-ink-soft")}>
+        <span className={cn("mt-0.5 truncate text-[10.5px] font-semibold lg:text-[11px]", light ? "text-white/80" : "text-ink-soft")}>
           бөбекжай-балабақшасы
         </span>
       </span>

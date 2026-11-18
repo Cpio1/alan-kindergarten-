@@ -98,10 +98,10 @@ export function MobileHeader({ logo }: { logo: SiteImage | null }) {
           <div className="flex shrink-0 items-center gap-2">
             <a
               href={contacts.phoneHref}
-              className="grid size-11 place-items-center rounded-full bg-sun text-ink"
+              className="grid size-10 place-items-center rounded-full bg-sun text-ink"
               aria-label={`Қоңырау шалу: ${contacts.phoneDisplay}`}
             >
-              <Phone className="size-[19px]" aria-hidden="true" />
+              <Phone className="size-[18px]" aria-hidden="true" />
             </a>
             <button
               ref={toggleRef}
@@ -111,7 +111,7 @@ export function MobileHeader({ logo }: { logo: SiteImage | null }) {
               aria-controls="mobile-menu"
               aria-label={open ? "Мәзірді жабу" : "Мәзірді ашу"}
               className={cn(
-                "grid size-11 place-items-center rounded-full transition-colors duration-200",
+                "grid size-10 place-items-center rounded-full transition-colors duration-200",
                 open ? "bg-ink text-white" : "bg-teal-deep text-white"
               )}
             >
@@ -152,14 +152,14 @@ export function MobileHeader({ logo }: { logo: SiteImage | null }) {
               role="dialog"
               aria-modal="true"
               aria-label="Сайт мәзірі"
-              className="absolute inset-x-0 top-full z-10 max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain rounded-b-[32px] bg-white px-4 pb-6 pt-3 shadow-card"
+              className="absolute inset-x-0 top-full z-10 max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain rounded-b-[28px] bg-white px-4 pb-5 pt-2 shadow-card"
               initial={{ opacity: 0, y: -16, clipPath: "inset(0 0 100% 0 round 0 0 32px 32px)" }}
               animate={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0 round 0 0 32px 32px)" }}
               exit={{ opacity: 0, y: -10, clipPath: "inset(0 0 100% 0 round 0 0 32px 32px)" }}
               transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
             >
               <nav aria-label="Мобильді мәзір">
-                <ul className="mx-auto grid max-w-md gap-1">
+                <ul className="mx-auto grid max-w-md gap-0.5">
                   {nav.map((item, i) => (
                     <motion.li
                       key={item.id}
@@ -172,7 +172,7 @@ export function MobileHeader({ logo }: { logo: SiteImage | null }) {
                         onClick={(e) => go(e, item.id)}
                         aria-current={active === item.id ? "true" : undefined}
                         className={cn(
-                          "flex min-h-[50px] items-center gap-3 rounded-2xl px-4 font-display text-[17px] font-semibold transition-colors",
+                          "flex min-h-[46px] items-center gap-3 rounded-2xl px-4 font-display text-[16px] font-semibold transition-colors",
                           active === item.id ? "bg-teal-soft text-teal-deep" : "text-ink active:bg-cream"
                         )}
                       >
@@ -183,19 +183,19 @@ export function MobileHeader({ logo }: { logo: SiteImage | null }) {
                   ))}
                 </ul>
               </nav>
-              <div className="mx-auto mt-4 grid max-w-md grid-cols-2 gap-2.5">
+              <div className="mx-auto mt-3 grid max-w-md grid-cols-2 gap-2.5">
                 <a
                   href={contacts.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-teal-deep px-3 font-display text-[15px] font-semibold text-white"
+                  className="flex min-h-[46px] items-center justify-center gap-2 rounded-2xl bg-teal-deep px-3 font-display text-[15px] font-semibold text-white"
                 >
                   <WhatsAppIcon className="size-5" />
                   WhatsApp
                 </a>
                 <a
                   href={contacts.phoneHref}
-                  className="flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-sun px-3 font-display text-[15px] font-semibold text-ink"
+                  className="flex min-h-[46px] items-center justify-center gap-2 rounded-2xl bg-sun px-3 font-display text-[15px] font-semibold text-ink"
                 >
                   <Phone className="size-[18px]" aria-hidden="true" />
                   Қоңырау
